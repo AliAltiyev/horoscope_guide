@@ -9,13 +9,36 @@ class HeroScopeDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint(heroScopeModel.toString());
     return  Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(heroScopeModel.name,style: TextStyle(color: Colors.white,fontSize: 16),),
-          Text(heroScopeModel.time,style: TextStyle(color: Colors.white,fontSize: 16),),
-          Text(heroScopeModel.description,style: TextStyle(color: Colors.white,fontSize: 16),)
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            elevation: 10,
+            expandedHeight: 250,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.asset(
+                "assets/images/${heroScopeModel.largeImage}",
+                fit: BoxFit.cover,
+              ),
+              centerTitle: true,
+              expandedTitleScale: 2,
+              title: Text("Heroscope ${heroScopeModel.name}"),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40,top: 20),
+                    child: Text(heroScopeModel.time,style: const TextStyle(fontSize: 24,fontWeight: FontWeight.w600)),
+                  ),
+                  Text(heroScopeModel.description,style: const TextStyle(fontSize: 18),),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

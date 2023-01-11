@@ -35,7 +35,7 @@ class HeroScopeList extends StatelessWidget {
       var model = HeroScopeModel(
         dataName[i],
         dataDate[i],
-      "dasdas",
+      dataDetails.first,
         "${dataName[i].toLowerCase()}$medium",
         "${dataName[i].toLowerCase()}$large",
       );
