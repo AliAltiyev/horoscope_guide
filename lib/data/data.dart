@@ -16,6 +16,8 @@ abstract class Data {
 
   static var heroScopeDates = <String>[
     "March 21 – April 19",
+    "March 21 – April 19",
+    "March 21 – April 19",
     "April 20 – May 20",
     "May 21 – June 21",
     "June 22 – July 22",
