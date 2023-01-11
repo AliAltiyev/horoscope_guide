@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:horoscope_guide/data/data.dart';
+import 'package:horoscope_guide/heroscope_item.dart';
 import 'package:horoscope_guide/model/heroscope_model.dart';
 
 class HeroScopeList extends StatelessWidget {
@@ -20,9 +21,11 @@ class HeroScopeList extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Horoscope"),
       ),
-      body: const Center(
-        child: Text("HoroScope"),
-      ),
+      body: ListView.builder(itemBuilder: (context, index) {
+        return HeroScopeItem(
+          heroScopeModel: heroScopeList[index],
+        );
+      },itemCount: heroScopeList.length,physics: const BouncingScrollPhysics(),),
     );
   }
 
@@ -32,9 +35,9 @@ class HeroScopeList extends StatelessWidget {
       var model = HeroScopeModel(
         dataName[i],
         dataDate[i],
-        dataDetails.first,
-        "${dataName[i].toLowerCase()}_medium.png",
-        "${dataName[i].toLowerCase()}_large.png",
+      dataDetails.first,
+        "${dataName[i].toLowerCase()}$medium",
+        "${dataName[i].toLowerCase()}$large",
       );
       heroScopeModelList.add(model);
     }
