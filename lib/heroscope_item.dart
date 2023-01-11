@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:horoscope_guide/heroscope_details.dart';
 import 'package:horoscope_guide/model/heroscope_model.dart';
 
 class HeroScopeItem extends StatelessWidget {
@@ -15,11 +14,7 @@ class HeroScopeItem extends StatelessWidget {
       child: Card(
         child: ListTile(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        HeroScopeDetails(heroScopeModel: heroScopeModel)));
+            Navigator.pushNamed(context, "/heroScopeDetails",arguments: heroScopeModel);
           },
           trailing: const Icon(
             Icons.chevron_right_outlined,

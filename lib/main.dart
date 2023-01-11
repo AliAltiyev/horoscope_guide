@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'heroscope_list.dart';
+import 'package:horoscope_guide/route/generate_route.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home:  HeroScopeList(),
+      onGenerateRoute: GenerateRoute.generateRoute,
     );
   }
 }
