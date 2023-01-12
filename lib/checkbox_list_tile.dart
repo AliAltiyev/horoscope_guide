@@ -10,6 +10,7 @@ class CheckBoxListTileExample extends StatefulWidget {
 
 class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
   bool checkBoxState = false;
+  bool switchState = false;
   var radioGroupValue = "";
 
   @override
@@ -88,6 +89,17 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
                     });
                   });
                 })
+            ,
+            SwitchListTile(value: switchState, onChanged:(value){
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(value.toString()),duration: Duration(milliseconds: 300),));
+              setState(() {
+                switchState = value;
+
+              });
+            }
+            ,title: const Text("Allow internet connection"),
+            activeTrackColor: Colors.green,activeColor: Colors.green,)
           ],
         ),
       ),
