@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
 const dropDownMenuItems = <String>["BMW", "Jeep", "Ferrari", "Lamborghini"];
@@ -30,8 +31,8 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
             Container(
               decoration: BoxDecoration(
                   border: Border.all(
-                color: Colors.purple,
-              )),
+                    color: Colors.purple,
+                  )),
               child: CheckboxListTile(
                   selectedTileColor: Colors.purple,
                   secondary: const Icon(Icons.color_lens_rounded),
@@ -188,7 +189,20 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
                   ),
                 ],
               ),
-            )
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2024))
+                      .then((value) => ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(
+                              content: Text(formatDate(
+                                  value!, [dd, '-', mm, '-', yyyy])))));
+                },
+                child: Text("Pick Date"))
           ],
         ),
       ),
