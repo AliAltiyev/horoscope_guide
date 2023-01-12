@@ -10,6 +10,7 @@ class CheckBoxListTileExample extends StatefulWidget {
 
 class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
   bool checkBoxState = false;
+  var radioGroupValue = "";
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,55 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
                     });
                   }),
             ),
+            RadioListTile(
+                title: Text("Man"),
+                value: "Man",
+                groupValue: radioGroupValue,
+                onChanged: (value) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(value.toString()),duration: Duration(milliseconds: 300),));
+
+                  setState(() {
+                    setState(() {
+                      debugPrint(value.toString());
+
+                      radioGroupValue = value!;
+                    });
+                  });
+                }),
+            RadioListTile(
+                title: Text("Woman"),
+                value: "Woman",
+                groupValue: radioGroupValue,
+                onChanged: (value) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(value.toString()),duration: Duration(milliseconds: 300),));
+
+                  setState(() {
+                    debugPrint(value.toString());
+                    setState(() {
+                      radioGroupValue = value!;
+                    });
+                  });
+                }),
+            RadioListTile(
+              tileColor: Colors.purple,
+              visualDensity: VisualDensity(vertical: 3),
+              activeColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: Colors.purple)),
+                title: Text("Bisexual",style: TextStyle(color: Colors.white),),
+                value: "Bisexual",
+                groupValue: radioGroupValue,
+                onChanged: (value) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(value.toString()),duration: Duration(milliseconds: 300),));
+                  setState(() {
+                    debugPrint(value.toString());
+                    setState(() {
+                      radioGroupValue = value!;
+                    });
+                  });
+                })
           ],
         ),
       ),
