@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const dropDownMenuItems = <String>["BMW", "Jeep", "Ferrari", "Lamborghini"];
+
 class CheckBoxListTileExample extends StatefulWidget {
   const CheckBoxListTileExample({Key? key}) : super(key: key);
 
@@ -13,6 +15,7 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
   bool switchState = false;
   var radioGroupValue = "";
   int sliderValue = 10;
+  String selectedCar = dropDownMenuItems.last;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +34,8 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
               )),
               child: CheckboxListTile(
                   selectedTileColor: Colors.purple,
-                  secondary: Icon(Icons.color_lens_rounded),
-                  title: Text("Dark theme"),
+                  secondary: const Icon(Icons.color_lens_rounded),
+                  title: const Text("Dark theme"),
                   activeColor: Colors.purple,
                   value: checkBoxState,
                   onChanged: (value) {
@@ -42,12 +45,14 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
                   }),
             ),
             RadioListTile(
-                title: Text("Man"),
+                title: const Text("Man"),
                 value: "Man",
                 groupValue: radioGroupValue,
                 onChanged: (value) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(value.toString()),duration: Duration(milliseconds: 300),));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(value.toString()),
+                    duration: const Duration(milliseconds: 300),
+                  ));
 
                   setState(() {
                     setState(() {
@@ -58,12 +63,14 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
                   });
                 }),
             RadioListTile(
-                title: Text("Woman"),
+                title: const Text("Woman"),
                 value: "Woman",
                 groupValue: radioGroupValue,
                 onChanged: (value) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(value.toString()),duration: Duration(milliseconds: 300),));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(value.toString()),
+                    duration: const Duration(milliseconds: 300),
+                  ));
 
                   setState(() {
                     debugPrint(value.toString());
@@ -73,17 +80,22 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
                   });
                 }),
             RadioListTile(
-              tileColor: Colors.purple,
-              visualDensity: VisualDensity(vertical: 3),
-              activeColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: Colors.purple)),
-                title: Text("Bisexual",style: TextStyle(color: Colors.white),),
+                tileColor: Colors.purple,
+                visualDensity: const VisualDensity(vertical: 3),
+                activeColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    side: const BorderSide(color: Colors.purple)),
+                title: const Text(
+                  "Bisexual",
+                  style: TextStyle(color: Colors.white),
+                ),
                 value: "Bisexual",
                 groupValue: radioGroupValue,
                 onChanged: (value) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(value.toString()),
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                   ));
                   setState(() {
                     debugPrint(value.toString());
@@ -97,7 +109,7 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
               onChanged: (value) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text(value.toString()),
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                 ));
                 setState(() {
                   switchState = value;
@@ -127,6 +139,56 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
                     sliderValue = value.toInt();
                   });
                 }),
+            // DropdownButton(
+            //   items: dropDownMenuItems
+            //       .map((e) => DropdownMenuItem(
+            //               child: Text(
+            //             e.toString(),
+            //             style: const TextStyle(color: Colors.green),
+            //           )))
+            //       .toList(),
+            //   onChanged: (value) {
+            //     setState(() {
+            //       debugPrint(selectedCar);
+            //       selectedCar = value;
+            //     });
+            //   },
+            //   value: selectedCar,
+            // )
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: DropdownButton<String>(
+                      alignment: Alignment.topLeft,
+                      value: selectedCar,
+                      icon: const Icon(Icons.arrow_downward),
+                      borderRadius: BorderRadius.circular(18),
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          selectedCar = value!;
+                        });
+                      },
+                      items: dropDownMenuItems
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
