@@ -10,7 +10,9 @@ class CheckBoxListTileExample extends StatefulWidget {
 
 class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
   bool checkBoxState = false;
+  bool switchState = false;
   var radioGroupValue = "";
+  int sliderValue = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -79,15 +81,52 @@ class _CheckBoxListTileExampleState extends State<CheckBoxListTileExample> {
                 value: "Bisexual",
                 groupValue: radioGroupValue,
                 onChanged: (value) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(value.toString()),duration: Duration(milliseconds: 300),));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(value.toString()),
+                    duration: Duration(milliseconds: 300),
+                  ));
                   setState(() {
                     debugPrint(value.toString());
                     setState(() {
                       radioGroupValue = value!;
                     });
                   });
-                })
+                }),
+            SwitchListTile(
+              value: switchState,
+              onChanged: (value) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(value.toString()),
+                  duration: Duration(milliseconds: 300),
+                ));
+                setState(() {
+                  switchState = value;
+                });
+              },
+              title: const Text("Allow internet connection"),
+              activeTrackColor: Colors.green,
+              activeColor: Colors.green,
+            ),
+            Slider(
+                value: sliderValue.toDouble(),
+                max: 100,
+                divisions: 20,
+                label: sliderValue.toString(),
+                onChanged: (double value) {
+                  setState(() {
+                    sliderValue = value.toInt();
+                  });
+                }),
+            Slider(
+                value: sliderValue.roundToDouble(),
+                max: 100,
+                divisions: 100,
+                label: sliderValue.round().toString(),
+                onChanged: (double value) {
+                  setState(() {
+                    sliderValue = value.toInt();
+                  });
+                }),
           ],
         ),
       ),
