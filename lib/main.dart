@@ -11,10 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
       title: 'Horoscope Guide',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+
+        primarySwatch: Colors.green,
       ),
       onGenerateRoute: GenerateRoute.generateRoute,
     );
