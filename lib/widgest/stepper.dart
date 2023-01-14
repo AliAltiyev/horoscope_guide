@@ -30,7 +30,7 @@ class _StepperExampleState extends State<StepperExample> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.lightGreen,
-          title: const Text('appbarTitle'),
+          title: const Text('Using CustomStepper'),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -69,7 +69,9 @@ class _StepperExampleState extends State<StepperExample> {
           content: TextFormField(
             key: emailKey,
             onSaved: (_email) => email = _email,
-            decoration: const InputDecoration(label: Text("Email")),
+            decoration: const InputDecoration(
+              label: Text("Email"),
+            ),
             validator: (value) {
               if (value!.length < 6) {
                 return "Incorrect email";
@@ -105,11 +107,11 @@ class _StepperExampleState extends State<StepperExample> {
               })),
       Step(
           isActive: true,
-          title: const Text("SureName"),
+          title: const Text("Surename"),
           content: TextFormField(
             key: sureNameKey,
             onSaved: (_sureName) => sureName = _sureName,
-            decoration: const InputDecoration(label: Text("SureName")),
+            decoration: const InputDecoration(label: Text("Surename")),
           )),
     ];
   }
