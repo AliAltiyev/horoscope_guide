@@ -15,7 +15,7 @@ class _StepperExampleState extends State<StepperExample> {
   final passwordKey = GlobalKey<FormFieldState>();
   final nameKey = GlobalKey<FormFieldState>();
   final sureNameKey = GlobalKey<FormFieldState>();
-  bool stepState = false;
+  bool stepStateError = false;
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _StepperExampleState extends State<StepperExample> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.lightGreen,
-          title: Text('appbarTitle'),
+          title: const Text('appbarTitle'),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -38,14 +38,12 @@ class _StepperExampleState extends State<StepperExample> {
               Stepper(
                 currentStep: currentStep,
                 steps: steppers(),
-                onStepTapped: (step) => setState(() {
-                  currentStep = step;
-                }),
+                // onStepTapped: (step) => setState(() {
+                //   currentStep = step;
+                // }),
                 onStepContinue: () {
                   setState(() {
-                    if (currentStep < steps.length - 1) {
-                      currentStep++;
-                    }
+                    checkStepValidation();
                   });
                 },
                 onStepCancel: () {
@@ -64,12 +62,14 @@ class _StepperExampleState extends State<StepperExample> {
   List<Step> steppers() {
     return [
       Step(
-
-          label: Text("Email"),
-          title: Text("Email"),
+          state: setStepperState(0),
+          isActive: true,
+          label: const Text("Email"),
+          title: const Text("Email"),
           content: TextFormField(
+            key: emailKey,
             onSaved: (_email) => email = _email,
-            decoration: InputDecoration(label: Text("Email")),
+            decoration: const InputDecoration(label: Text("Email")),
             validator: (value) {
               if (value!.length < 6) {
                 return "Incorrect email";
@@ -77,10 +77,13 @@ class _StepperExampleState extends State<StepperExample> {
             },
           )),
       Step(
-          title: Text("Password"),
+          state: setStepperState(1),
+          isActive: true,
+          title: const Text("Password"),
           content: TextFormField(
+            key: passwordKey,
             onSaved: (_password) => password = _password,
-            decoration: InputDecoration(label: Text("Password")),
+            decoration: const InputDecoration(label: Text("Password")),
             validator: (value) {
               if (value!.length < 6) {
                 return "incorrect password";
@@ -88,23 +91,73 @@ class _StepperExampleState extends State<StepperExample> {
             },
           )),
       Step(
-          title: Text("Name"),
+          isActive: true,
+          state: setStepperState(2),
+          title: const Text("Name"),
           content: TextFormField(
+              key: nameKey,
               onSaved: (_name) => name = _name,
-              decoration: InputDecoration(label: Text("Name")),
+              decoration: const InputDecoration(label: Text("Name")),
               validator: (value) {
                 if (value!.length < 6) {
                   return "name";
                 }
               })),
       Step(
-          title: Text("SureName"),
+          isActive: true,
+          title: const Text("SureName"),
           content: TextFormField(
+            key: sureNameKey,
             onSaved: (_sureName) => sureName = _sureName,
-            decoration: InputDecoration(label: Text("SureName")),
+            decoration: const InputDecoration(label: Text("SureName")),
           )),
     ];
   }
 
+  StepState setStepperState(int i) {
+    if (currentStep == i) {
+      if (stepStateError) {
+        return StepState.error;
+      } else {
+        return StepState.editing;
+      }
+    } else {
+      return StepState.complete;
+    }
+  }
 
+  void checkStepValidation() {
+    switch (currentStep) {
+      case 0:
+        if (emailKey.currentState!.validate()) {
+          emailKey.currentState?.save();
+          emailKey.currentState?.validate();
+          stepStateError = false;
+          currentStep = 1;
+        } else {
+          stepStateError = true;
+        }
+        break;
+      case 1:
+        if (passwordKey.currentState!.validate()) {
+          passwordKey.currentState?.save();
+          passwordKey.currentState?.validate();
+          stepStateError = false;
+          currentStep = 2;
+        } else {
+          stepStateError = true;
+        }
+        break;
+      case 2:
+        if (nameKey.currentState!.validate()) {
+          nameKey.currentState?.save();
+          nameKey.currentState?.validate();
+          stepStateError = false;
+          currentStep = 3;
+        } else {
+          stepStateError = true;
+        }
+        break;
+    }
+  }
 }
